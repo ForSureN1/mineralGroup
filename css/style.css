@@ -322,6 +322,7 @@ select {
 
 .hero {
   position: relative;
+  height: 100vh;
 }
 
 .hero video {
@@ -334,15 +335,19 @@ select {
      object-fit: cover;
 }
 
+.hero .container {
+  height: 100%;
+}
+
 .hero__container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 250px;
-  padding-bottom: 230px;
+  justify-content: center;
   z-index: 1;
   color: #ffffff;
+  height: 100%;
 }
 
 .hero__title {
@@ -744,7 +749,7 @@ body {
   }
 }
 
-@media (max-width: 1450px) {
+@media (max-width: 1430px) {
   .container {
     max-width: 1140px;
   }
@@ -756,11 +761,6 @@ body {
   .title {
     font-size: 40px;
     margin-bottom: 30px;
-  }
-
-  .hero__container {
-    padding-top: 200px;
-    padding-bottom: 220px;
   }
 
   .hero__title {
@@ -845,13 +845,6 @@ body {
 
   .header__nav-link {
     font-size: 10px;
-  }
-
-  .hero__container {
-    height: 100vh;
-    padding-top: 0;
-    padding-bottom: 0;
-    justify-content: center;
   }
 
   .hero__title {
@@ -1145,8 +1138,12 @@ body {
     justify-content: flex-end;
   }
 
+  .hero__title {
+    margin-bottom: 20px;
+  }
+
   .hero__text {
-    margin-bottom: 125px;
+    margin-bottom: 46px;
   }
 
   .hero__link {
@@ -1155,6 +1152,9 @@ body {
     margin-right: auto;
     left: auto;
     transform: unset;
+    top: auto;
+    bottom: auto;
+    margin-bottom: 55px;
   }
 
   .hero__slider {
@@ -1162,7 +1162,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    margin-bottom: 50px;
+    margin-bottom: 57px;
   }
 
   .hero__slider .slick-list {
