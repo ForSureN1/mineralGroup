@@ -884,6 +884,7 @@ body {
 
   .about__text {
     margin-bottom: 25px;
+    line-height: 140%;
   }
 
   .about__text-mini {
@@ -899,6 +900,7 @@ body {
     bottom: auto;
     transform: unset;
     border: none;
+    top: auto;
   }
 
   .mission__img {
