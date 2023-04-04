@@ -28,12 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function headZoom(e) {
             if (window.innerWidth > 1240) {
+                let aboutInfoBlock = document.querySelector('.about__info').offsetHeight;
                 var scroll_val = Math.round($(window).scrollTop() - document.querySelector('.hero').offsetHeight);
                 switch (scroll_val >= -200) {
                     case (scroll_val < 40):
                         {
                             $('.mission').css({ "transform": "rotate(-45deg)" });
-                            $('.mission').css({ "bottom": "60%" });
+                            $('.mission').css({ "top": "260px" });
                             $('.mission').css({ "border": "1px solid #FF3400" });
                             $('.mission').css({ "left": "60%" });
                             $('.mission').css({ "width": "400px" });
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     case (scroll_val < 100):
                         {
                             $('.mission').css({ "transform": "rotate(-30deg)" });
-                            $('.mission').css({ "bottom": "40%" });
+                            $('.mission').css({ "top": "460px" });
                             $('.mission').css({ "left": "55%" });
                             $('.mission').css({ "padding": "20px" });
                             $('.mission').css({ "border": "1px solid #FF3400" });
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     case (scroll_val < 200):
                         {
                             $('.mission').css({ "transform": "rotate(-20deg)" });
-                            $('.mission').css({ "bottom": "20%" });
+                            $('.mission').css({ "top": "860px" });
                             $('.mission').css({ "border": "1px solid #FF3400" });
                             $('.mission').css({ "left": "45%" });
                             $('.mission__img-bg').css({ "opacity": "0" });
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     case (scroll_val < 400):
                         {
                             $('.mission').css({ "transform": "rotate(0deg)" });
-                            $('.mission').css({ "bottom": "0" });
+                            $('.mission').css({ "top": aboutInfoBlock + 50 + 110 + 30 + 'px' });
                             $('.mission').css({ "left": "0" });
                             $('.mission__img-bg').css({ "opacity": "0.4" });
                             $('.mission').css({ "border": "0px solid #FF3400" });
