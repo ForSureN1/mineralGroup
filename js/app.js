@@ -1,3 +1,11 @@
+const setAnimateSvg = (arrayPath) => {
+    anime({
+        targets: arrayPath,
+        duration: 1000,
+        easing: 'easeInOutQuad',
+        strokeDashoffset: [anime.setDashoffset, 0]
+    });
+}
 document.addEventListener('DOMContentLoaded', () => {
     let headerMenu = document.querySelector('.header__nav');
     document.addEventListener('click', ({ target }) => {
@@ -94,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             $('.mission__img-bg').css({ "opacity": "0.7" });
                             break;
                         }
-                    case (scroll_val < 500):
+                    case (scroll_val < 560):
                         {
                             $('.mission__container').css({ "opacity": "1" });
                             $('.mission .container').css({ "transform": "translateY(-50%)" });
@@ -111,27 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
         headZoom();
     }
 
-    // indicators section
-    // let indiBlock = document.querySelector('.indicators__block');
-    // if (indiBlock) {
-    //     window.addEventListener('scroll', ({ target }) => {
-
-    //     });
-    // }
-    const setAnimateSvg = (arrayPath) => {
-        anime({
-            targets: arrayPath,
-            duration: 1000,
-            easing: 'easeInOutQuad',
-            strokeDashoffset: [anime.setDashoffset, 0]
-        });
-    }
     let sections = $('.indicators__item'),
         nav = $('.indicators__img'),
         nav_height = nav.outerHeight();
     $(window).on('scroll', function() {
         if (window.innerWidth > 768) {
-            console.log('1');
             let cur_pos = $('.indicators__img').offset().top;
             sections.each(function() {
                 let top = $(this).offset().top - nav_height / 2,
@@ -159,6 +151,144 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // animation benefits
+    let benefitsBlock = document.querySelector('.benefits__items');
+    if (benefitsBlock) {
+        let delta;
+        let benefitsItems = benefitsBlock.querySelectorAll('.benefits__item');
+        let fBlock = benefitsItems[0];
+        let sBlock = benefitsItems[1];
+        let curDelta = -1;
+        let positionX = benefitsBlock.offsetWidth - fBlock.offsetWidth + 'px';
+        let positionY = benefitsBlock.offsetHeight - fBlock.offsetHeight + 'px';
+        benefitsBlock.addEventListener('wheel', (e) => {
+            if (window.innerWidth > 992) {
+                delta = Math.sign(e.deltaY);
+                if ((delta == 1) && (delta != curDelta)) {
+                    curDelta = delta;
+                    fBlock.animate([
+                        { transform: 'translate(0, 0)' },
+                        { transform: 'translate(80px, 30px)', opacity: '0.2' },
+                        {
+                            transform: `translate(${positionX}, ${positionY})`,
+                            zIndex: '1',
+                            opacity: '1'
+                        },
+                    ], { duration: 600, easing: 'ease-in-out', fill: 'forwards' });
+                    sBlock.animate([
+                        { transform: 'translate(0, 0)' },
+                        { transform: 'translate(-80px, -30px)', opacity: '0.2' },
+                        {
+                            transform: `translate(-${positionX}, -${positionY})`,
+                            zIndex: '2',
+                            opacity: '1'
+                        },
+                    ], { duration: 600, easing: 'ease-in-out', fill: 'forwards' });
+                } else if ((delta == -1) && (delta != curDelta)) {
+                    curDelta = delta;
+                    fBlock.animate([
+                        { transform: `translate(${positionX}, ${positionY})`, },
+                        { transform: 'translate(30px, 80px)', opacity: '0.2' },
+                        {
+                            transform: 'translate(0, 0)',
+                            zIndex: '2',
+                            opacity: '1'
+                        },
+                    ], { duration: 600, easing: 'ease-in-out', fill: 'forwards' });
+                    sBlock.animate([
+                        { transform: `translate(-${positionX}, -${positionY})`, },
+                        { transform: 'translate(-30px, -80px)', opacity: '0.2' },
+                        {
+                            transform: 'translate(0, 0)',
+                            zIndex: '1',
+                            opacity: '1'
+                        },
+                    ], { duration: 600, easing: 'ease-in-out', fill: 'forwards' });
+                }
+            }
+        });
+        // arrows
+        let prevArr = document.querySelector('.benefits__arrow.prev');
+        let nextArr = document.querySelector('.benefits__arrow.next');
+        prevArr.addEventListener('click', () => {
+            if (curDelta == 1) {
+                curDelta = -1;
+                fBlock.animate([
+                    { transform: `translate(${positionX}, ${positionY})`, },
+                    { transform: 'translate(30px, 80px)', opacity: '0.2' },
+                    {
+                        transform: 'translate(0, 0)',
+                        zIndex: '2',
+                        opacity: '1'
+                    },
+                ], { duration: 600, easing: 'ease-in-out', fill: 'forwards' });
+                sBlock.animate([
+                    { transform: `translate(-${positionX}, -${positionY})`, },
+                    { transform: 'translate(-30px, -80px)', opacity: '0.2' },
+                    {
+                        transform: 'translate(0, 0)',
+                        zIndex: '1',
+                        opacity: '1'
+                    },
+                ], { duration: 600, easing: 'ease-in-out', fill: 'forwards' });
+            }
+        });
+        nextArr.addEventListener('click', () => {
+            if (curDelta == -1) {
+                curDelta = 1;
+                fBlock.animate([
+                    { transform: 'translate(0, 0)' },
+                    { transform: 'translate(80px, 30px)', opacity: '0.2' },
+                    {
+                        transform: `translate(${positionX}, ${positionY})`,
+                        zIndex: '1',
+                        opacity: '1'
+                    },
+                ], { duration: 600, easing: 'ease-in-out', fill: 'forwards' });
+                sBlock.animate([
+                    { transform: 'translate(0, 0)' },
+                    { transform: 'translate(-80px, -30px)', opacity: '0.2' },
+                    {
+                        transform: `translate(-${positionX}, -${positionY})`,
+                        zIndex: '2',
+                        opacity: '1'
+                    },
+                ], { duration: 600, easing: 'ease-in-out', fill: 'forwards' });
+            }
+        });
+    }
+
+    // check scroll position indicators
+    const svgIndicatords = document.querySelector('.indicators__img-svg'); // замените 'element-id' на идентификатор своего элемента
+    let svgFlag = false;
+
+
+    if (svgIndicatords) {
+        let svgIndiPath = svgIndicatords.querySelectorAll('rect');
+
+        function isElementInViewport(svgIndicatords) {
+            const rect = svgIndicatords.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        function onScroll() {
+            if (isElementInViewport(svgIndicatords) && !svgFlag) {
+                svgIndicatords.animate([
+                    { opacity: 0 },
+                    { opacity: 1 }
+                ], { duration: 300, easing: 'ease-in-out', fill: 'forwards' });
+                svgFlag = true;
+                setAnimateSvg(svgIndiPath);
+            }
+        }
+        window.addEventListener('scroll', onScroll);
+    }
 
 });
 
@@ -242,21 +372,25 @@ window.onload = () => {
                 if (!init) {
                     init = true;
                     $('.indicators__items').slick({
-                        autoplay: false,
+                        autoplay: true,
                         slidesToShow: 1,
                         arrows: false,
                         dots: false,
                         fade: true,
                         asNavFor: '.indicators__img',
-                        adaptiveHeight: true,
+                        // adaptiveHeight: true,
                     });
                     $('.indicators__img').slick({
-                        autoplay: false,
                         slidesToShow: 1,
                         arrows: false,
                         dots: true,
                         fade: true,
                         asNavFor: '.indicators__items',
+                    });
+                    $('.indicators__img').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+                        console.log(nextSlide);
+                        let activeSlideSvgPath = document.querySelectorAll('.indicators__img-item svg path');
+                        setAnimateSvg(activeSlideSvgPath);
                     });
                 }
 
@@ -273,6 +407,50 @@ window.onload = () => {
         window.addEventListener('resize', function() {
             slickModeIndi();
         });
+    }
+    let partSliders = document.querySelector('.partners');
+    if (partSliders) {
+        let init = false;
+
+        function slickModeIndi() {
+            let mobile = window.matchMedia('(min-width: 0px) and (max-width: 768px)')
+            let desktop = window.matchMedia('(min-width: 768px)');
+            // Enable (for mobile)
+            if (mobile.matches) {
+                if (!init) {
+                    init = true;
+                    $('.partners__items').slick({
+                        autoplay: true,
+                        slidesToShow: 1,
+                        arrows: false,
+                        dots: true,
+                        fade: true,
+                    });
+                }
+
+            }
+
+            // Disable (for desktop)
+            else if (desktop.matches && init) {
+                init = false;
+                $('.partners__items').slick('unslick');
+            }
+        }
+        slickModeIndi();
+        window.addEventListener('resize', function() {
+            slickModeIndi();
+        });
+    }
+    let heroLink = document.querySelector('.hero__link');
+    if (heroLink) {
+        let heroLinkSvgPath = heroLink.querySelectorAll('svg path');
+        let heroLinkSvgRect = heroLink.querySelectorAll('svg rect');
+        let animateSvg = heroLink.animate([
+            { opacity: 0 },
+            { opacity: 1 }
+        ], { duration: 300, easing: 'ease-in-out', fill: 'forwards' });
+        setAnimateSvg(heroLinkSvgPath);
+        setAnimateSvg(heroLinkSvgRect);
     }
 };
 
