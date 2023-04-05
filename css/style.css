@@ -716,10 +716,6 @@ select {
   color: #FF3400;
 }
 
-.indicators {
-  overflow: hidden;
-}
-
 .indicators__container {
   padding-top: 170px;
   padding-bottom: 120px;
@@ -1660,6 +1656,10 @@ select {
   .about__text-mini {
     flex-direction: column;
     row-gap: 20px;
+  }
+
+  .indicators {
+    overflow: hidden;
   }
 
   .indicators__container {
